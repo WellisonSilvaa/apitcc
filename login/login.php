@@ -19,20 +19,20 @@
         exit();
     }
     
-        $query_con = $pdo->prepare("SELECT * from usuarios WHERE (email = :usuario OR cpf = :usuario) AND senha = :senha");
+        $query_con = $pdo->prepare("SELECT * from usuarios WHERE usu_email = :usuario AND usu_senha = :senha");
         $query_con->bindValue(":usuario", $usuario);
         $query_con->bindValue(":senha", $senha);
         $query_con->execute();
         $res = $query_con->fetchAll(PDO::FETCH_ASSOC);
         if(@count($res) > 0){
 
-            $dados[] = array(
-                'id' => $res[0]['id'],
-                'nome' => $res[0]['nome'],
-                'email' => $res[0]['email'],
-                'cpf' => $res[0]['cpf'],
-                'senha' => $res[0]['senha'],
-                'nivel' => $res[0]['nivel']
+            $dados = array(
+                'usu_id' => $res[0]['usu_id'],
+                'usu_nome' => $res[0]['usu_nome'],
+                'usu_email' => $res[0]['usu_email'],
+                'usu_assinante' => $res[0]['usu_assinante'],
+                'usu_senha' => $res[0]['usu_senha'],
+                'usu_nivel' => $res[0]['usu_nivel']
             );  
 
             $result = json_encode(array('mensagem'=>'Logado com Sucesso', 'ok'=> true, 'usu' => $dados));
